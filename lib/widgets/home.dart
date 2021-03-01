@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+
 // --------------
 class StartScreen extends StatefulWidget {
   // Passer des parametre à ma class
-  StartScreen({Key key, this.title}):super(key:key);
+  StartScreen({Key key, this.title}) : super(key: key);
   final String title;
   @override
   _StartScreenState createState() => _StartScreenState();
@@ -30,10 +31,27 @@ class _StartScreenState extends State<StartScreen> {
         backgroundColor: Colors.greenAccent,
       ),
       body: new Center(
-        child : new Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children : <Widget> [
-
+        child: new Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            new Card(
+              elevation: 10.0,
+              child: new Container(
+                height: MediaQuery.of(context).size.height / 2.2,
+                width: MediaQuery.of(context).size.width / 1.2,
+                child: new Image.asset(
+                  "quizz_assets/cover.jpg",
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            new RaisedButton(
+                onPressed: () {},
+                child: new Text(
+                  "Commancer le quizz",
+                  textScaleFactor: 1.0,
+                  style : new TextStyle(),
+                )),
           ],
         ),
       ),
