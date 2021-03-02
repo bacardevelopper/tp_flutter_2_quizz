@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-
+import 'package:quiz_app/widgets/custom_text.dart';
+import 'package:quiz_app/widgets/page_quizz.dart';
 // --------------
 class StartScreen extends StatefulWidget {
   // Passer des parametre à ma class
@@ -46,15 +47,22 @@ class _StartScreenState extends State<StartScreen> {
               ),
             ),
             new RaisedButton(
-                onPressed: () {},
-                child: new Text(
-                  "Commancer le quizz",
-                  textScaleFactor: 1.0,
-                  style : new TextStyle(),
-                )),
+              color: Colors.greenAccent,
+              onPressed: () {
+                Navigator.push(
+                  context, new MaterialPageRoute(builder: (BuildContext context) {
+                    return new QuizzPage();
+                  })
+                );
+              },
+              child:
+                  new CustomText("Commencer", factor: 1.5, color: Colors.white),
+            ),
           ],
         ),
       ),
     );
   }
 }
+
+

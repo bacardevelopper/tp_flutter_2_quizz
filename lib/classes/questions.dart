@@ -1,3 +1,4 @@
+// ma class Question
 class Question {
   String question;
   bool reponse;
