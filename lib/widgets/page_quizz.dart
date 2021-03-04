@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'custom_text.dart';
 import 'package:quiz_app/classes/questions.dart';
+import 'dart:async';
 
 class QuizzPage extends StatefulWidget {
   @override
@@ -9,6 +10,9 @@ class QuizzPage extends StatefulWidget {
 
 class _PageState extends State<QuizzPage> {
   // question de type Question
+
+  int index = 0;
+  int score = 0;
   Question question;
   List<Question> maListeQuestion = [
     new Question('La devise de la Belgique est l\'union fait la force', true,
@@ -36,24 +40,71 @@ class _PageState extends State<QuizzPage> {
         'Dire que je me plains avec mes 8GO de ram sur mon mac', 'eagle.jpg'),
   ];
 
-  int index = 0;
-  int score = 0;
-
   @override
-  void initState(){
+  void initState() {
     super.initState();
     question = maListeQuestion[index];
   }
+
   @override
   Widget build(BuildContext context) {
+    double taille = MediaQuery.of(context).size.width * 0.75;
     // todo : implement build
     return new Scaffold(
       appBar: new AppBar(
         centerTitle: true,
-        title: new CustomText("le quizz", color : Colors.white),
-        backgroundColor : Colors.greenAccent,
+        title: new CustomText("le quizz", color: Colors.white),
+        backgroundColor: Colors.greenAccent,
       ),
-      body: new Center(),
+      body: new Center(
+        child: new Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            new CustomText("Question numéro ${index + 1}"),
+            new CustomText("Score : $score / $index", color: Colors.green),
+            new Card(
+              elevation: 10.0,
+              child: new Container(
+                height: taille,
+                width: taille,
+                child: new Image.asset("quizz_assets/${question.imagePath}",
+                    fit: BoxFit.cover),
+              ),
+            ),
+            new CustomText(question.question,
+                color: Colors.grey[900], factor: 1.1),
+            new Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  buttonBool(true),
+                  buttonBool(false),
+                ])
+          ],
+        ),
+      ),
     );
+  }
+
+  RaisedButton buttonBool(bool b) {
+    return new RaisedButton(
+      elevation: 10.0,
+      onPressed: () => dialogue(b),
+      color: Colors.greenAccent,
+      child: new CustomText((b) ? "vrai" : "faux"),
+    );
+  }
+
+  Future dialogue(bool b) async {
+    if (b) {
+      setState(() {
+        score = score + 1;
+        index = index + 1;
+      });
+    } else {
+      setState(() {
+        score = score + 0;
+        index = index + 1;
+      });
+    }
   }
 }
